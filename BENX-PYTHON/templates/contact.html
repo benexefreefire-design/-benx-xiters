@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Contact — BENX XITERS{% endblock %}
+
+{% block extra_css %}
+<style>
+  .contact-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start}
+  @media(max-width:768px){.contact-layout{grid-template-columns:1fr}}
+  .contact-info-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;position:sticky;top:100px}
+  .contact-method{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--border)}
+  .contact-method:last-child{border-bottom:none}
+  .c-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .c-icon.tg{background:rgba(0,136,204,.2);color:#08c}
+  .c-icon.yt{background:rgba(255,0,0,.15);color:#f00}
+  .c-icon.discord{background:rgba(88,101,242,.2);color:#5865f2}
+  .c-icon.email{background:rgba(192,57,43,.2);color:var(--primary-2)}
+  .c-label{font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+  .c-value{font-weight:700;font-size:16px;transition:var(--transition)}
+  .c-value:hover{color:var(--primary-2)}
+  .contact-form-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:500px){.form-row{grid-template-columns:1fr}}
+  textarea.form-control{resize:vertical;min-height:140px;font-family:var(--font-body)}
+  .success-banner{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);border-radius:var(--radius);padding:16px 20px;text-align:center;color:#10b981;font-weight:600;margin-bottom:20px}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+</style>
+{% endblock %}
+
+{% block content %}
+
+  <div class="page-header">
+    <div class="section-tag"><i class="fas fa-headset"></i> Contact Us</div>
+    <h1>Get In <span class="gradient-text">Touch</span></h1>
+    <p>Our support team is online 24/7 — average response time under 5 minutes</p>
+  </div>
+
+  <section style="padding:60px 0 100px; position:relative; z-index:2;">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- INFO -->
+        <div class="contact-info-box">
+          <h3 style="font-family:var(--font-head);margin-bottom:8px;">Support <span class="gradient-text">Channels</span></h3>
+          <p style="color:var(--text-muted);font-size:14px;margin-bottom:28px">Reach us through any of these channels.</p>
+
+          <div class="contact-method">
+            <div class="c-icon tg"><i class="fab fa-telegram"></i></div>
+            <div>
+              <div class="c-label">Telegram (Fastest)</div>
+              <a href="{{ site.telegram or 'https://t.me/benxuiters' }}" target="_blank" class="c-value">@benxuiters</a>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="c-icon yt"><i class="fab fa-youtube"></i></div>
+            <div>
+              <div class="c-label">YouTube</div>
+              <a href="{{ site.youtube or '#' }}" target="_blank" class="c-value">BENX XITERS</a>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="c-icon discord"><i class="fab fa-discord"></i></div>
+            <div>
+              <div class="c-label">Discord Server</div>
+              <a href="{{ site.discord or '#' }}" target="_blank" class="c-value">discord.gg/benxuiters</a>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="c-icon email"><i class="fas fa-envelope"></i></div>
+            <div>
+              <div class="c-label">Email Support</div>
+              <a href="mailto:{{ site.email or 'support@benxuiters.com' }}" class="c-value">{{ site.email or 'support@benxuiters.com' }}</a>
+            </div>
+          </div>
+
+          <div style="margin-top:28px;padding:20px;background:var(--bg-card2);border-radius:var(--radius);border:1px solid var(--border)">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <span style="width:10px;height:10px;background:#10b981;border-radius:50%;display:block;animation:blink 1s infinite"></span>
+              <strong style="font-family:var(--font-head);font-size:14px;color:#10b981">Support Online</strong>
+            </div>
+            <p style="font-size:13px;color:var(--text-muted)">Average response: &lt; 5 minutes<br/>Working hours: 24/7</p>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="contact-form-box">
+          <h3 style="font-family:var(--font-head);font-size:22px;margin-bottom:8px;">Send a <span class="gradient-text">Message</span></h3>
+          <p style="color:var(--text-muted);font-size:14px;margin-bottom:28px">Fill in the form and we'll get back to you ASAP.</p>
+
+          {% if success %}
+          <div class="success-banner">
+            <i class="fas fa-check-circle"></i> Message sent! We'll reply within 5 minutes via Telegram or Email.
+          </div>
+          {% endif %}
+
+          <form id="contactForm" method="POST" action="{{ url_for('contact') }}">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Your Name *</label>
+                <input type="text" name="name" class="form-control" placeholder="Enter your name" required />
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" name="email" class="form-control" placeholder="your@email.com" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Telegram Username</label>
+                <input type="text" name="telegram" class="form-control" placeholder="@username" />
+              </div>
+              <div class="form-group">
+                <label>Subject *</label>
+                <select name="subject" class="form-control" required>
+                  <option value="">Select a topic</option>
+                  <option>Purchase / Payment</option>
+                  <option>Technical Issue</option>
+                  <option>Key Activation</option>
+                  <option>Refund Request</option>
+                  <option>Partnership</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Your Message *</label>
+              <textarea name="message" class="form-control" placeholder="Describe your issue or question in detail..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {% include '_footer.html' %}
+
+{% endblock %}

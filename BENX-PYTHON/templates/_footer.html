@@ -1,0 +1,53 @@
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="{{ url_for('static', filename='images/BENXLOGO.png') }}" alt="BENX" class="footer-logo" />
+        <h3><span class="accent-steel">BENX</span> <span class="accent">XITERS</span></h3>
+        <p>Next-generation AI gaming tools for elite players worldwide.</p>
+        <div class="social-links">
+          <a href="{{ site.telegram or '#' }}" target="_blank"><i class="fab fa-telegram"></i></a>
+          <a href="{{ site.youtube or '#' }}" target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="{{ site.discord or '#' }}" target="_blank"><i class="fab fa-discord"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="{{ url_for('products') }}">PC Tools</a></li>
+          <li><a href="{{ url_for('products') }}">Phone Tools</a></li>
+          <li><a href="{{ url_for('products') }}">VIP Keys</a></li>
+          <li><a href="{{ url_for('products') }}">Loader Files</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="{{ url_for('features') }}">Features</a></li>
+          <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="{{ site.telegram or 'https://t.me/benxuiters' }}" target="_blank">Telegram Support</a></li>
+          <li><a href="{{ url_for('contact') }}">Email Support</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Status Page</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 BENX XITERS. All rights reserved. | Designed with ❤️ by BENX Team</p>
+      <div class="payment-icons">
+        <span>bKash</span>
+        <span>Nagad</span>
+        <span>Crypto</span>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}BENX XITERS{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/BENXLOGO.png') }}" type="image/png" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <div class="pre-logo">
+      <img src="{{ url_for('static', filename='images/BENXLOGO.png') }}" alt="BENX Logo" />
+      <div class="pre-bar"><span></span></div>
+    </div>
+  </div>
+
+  <!-- PARTICLES BG -->
+  <div id="particles-bg"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="{{ url_for('index') }}" class="nav-logo">
+        <img src="{{ url_for('static', filename='images/BENXLOGO.png') }}" alt="BENX XITERS" class="logo-img" />
+        <span class="logo-text"><span class="accent-steel">BENX</span> <span class="accent">XITERS</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="{{ url_for('index') }}"    {% if page=='home'     %}class="active"{% endif %}>Home</a></li>
+        <li><a href="{{ url_for('products') }}" {% if page=='products' %}class="active"{% endif %}>Products</a></li>
+        <li><a href="{{ url_for('pricing') }}"  {% if page=='pricing'  %}class="active"{% endif %}>Pricing</a></li>
+        <li><a href="{{ url_for('features') }}" {% if page=='features' %}class="active"{% endif %}>Features</a></li>
+        <li><a href="{{ url_for('contact') }}"  {% if page=='contact'  %}class="active"{% endif %}>Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        {% if session.get('logged_in') %}
+          <a href="{{ url_for('dashboard') }}" class="btn btn-outline"><i class="fas fa-th-large"></i> Dashboard</a>
+          <a href="{{ url_for('logout') }}"    class="btn btn-primary"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}"    class="btn btn-outline">Login</a>
+          <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
+        {% endif %}
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div id="flash-{{ loop.index }}" style="
+          position:fixed;bottom:90px;right:30px;z-index:9999;
+          background:{% if category=='error' %}rgba(239,68,68,.95){% else %}rgba(16,185,129,.95){% endif %};
+          color:#fff;padding:14px 20px;border-radius:12px;
+          font-family:'Rajdhani',sans-serif;font-weight:600;font-size:15px;
+          box-shadow:0 8px 30px rgba(0,0,0,.3);animation:toastIn .3s ease;
+        ">{{ message }}</div>
+        <script>
+          setTimeout(()=>{ const el=document.getElementById('flash-{{ loop.index }}'); if(el) el.remove(); }, 3000);
+        </script>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% block title %}Pricing — BENX XITERS{% endblock %}
+
+{% block extra_css %}
+<style>
+  .pricing-tabs{display:flex;gap:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;margin:0 auto 48px;flex-wrap:wrap;justify-content:center}
+  .pricing-tab{padding:8px 24px;border-radius:100px;border:none;background:transparent;color:var(--text-muted);font-family:var(--font-body);font-weight:600;font-size:14px;cursor:pointer;transition:var(--transition)}
+  .pricing-tab.active{background:var(--gradient);color:#fff}
+  .pricing-section-full{padding:60px 0 100px;position:relative;z-index:2}
+  .faq-section{padding:80px 0;position:relative;z-index:2}
+  .faq-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+  .faq-question{padding:20px 24px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:16px;transition:var(--transition)}
+  .faq-question:hover{color:var(--primary-2)}
+  .faq-question i{transition:transform .3s;color:var(--primary-2)}
+  .faq-item.open .faq-question i{transform:rotate(180deg)}
+  .faq-answer{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;padding:0 24px;color:var(--text-muted);font-size:15px;line-height:1.7}
+  .faq-item.open .faq-answer{max-height:200px;padding:0 24px 20px}
+  .payment-methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:60px}
+  .payment-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;text-align:center;transition:var(--transition)}
+  .payment-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+  .payment-icon{font-size:36px;margin-bottom:14px}
+  .payment-card h4{font-family:var(--font-head);font-size:16px;margin-bottom:8px}
+  .payment-card p{color:var(--text-muted);font-size:13px}
+</style>
+{% endblock %}
+
+{% block content %}
+
+  <div class="page-header">
+    <div class="section-tag"><i class="fas fa-tags"></i> Pricing</div>
+    <h1>Simple <span class="gradient-text">Pricing</span></h1>
+    <p>No hidden fees. Cancel anytime. Instant activation.</p>
+  </div>
+
+  <section class="pricing-section-full">
+    <div class="container">
+      <div class="pricing-tabs">
+        <button class="pricing-tab active">🔥 Free Fire</button>
+        <button class="pricing-tab">🎯 PUBG Mobile</button>
+        <button class="pricing-tab">🔫 COD Mobile</button>
+      </div>
+
+      <div class="pricing-toggle">
+        <span>Daily</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="pricingToggle" />
+          <span class="slider"></span>
+        </label>
+        <span>Monthly <span class="save-badge">Save 40%</span></span>
+      </div>
+
+      <div class="pricing-grid">
+        {% set plans = [
+          ('LITE',  49,  899,  False, ['Basic Aimbot','Simple ESP','Speed Hack','Community Support'],[]),
+          ('PRO',   99,  1799, True,  ['AI Neural Aimbot','Full ESP + Radar','Speed + Jump Hack','Anti-Ban System','No Recoil','Auto Update'],[]),
+          ('ULTRA', 199, 3499, False, ['All PRO Features','AI Auto-Mode','Skins ESP','Device ID Spoofer','Priority Updates','VIP Support 24/7','Private Telegram'],[]),
+        ] %}
+        {% for name, daily, monthly, popular, features, _ in plans %}
+        <div class="pricing-card {% if popular %}popular{% endif %}" data-aos="fade-up">
+          {% if popular %}<div class="popular-badge">⭐ Most Popular</div>{% endif %}
+          <div class="plan-name">{{ name }}</div>
+          <div class="plan-price daily">
+            <span class="currency">৳</span><span class="amount">{{ daily }}</span><span class="per">/day</span>
+          </div>
+          <div class="plan-price monthly" style="display:none">
+            <span class="currency">৳</span><span class="amount">{{ monthly }}</span><span class="per">/month</span>
+          </div>
+          <ul class="plan-features">
+            {% for feat in features %}
+            <li><i class="fas fa-check"></i> {{ feat }}</li>
+            {% endfor %}
+          </ul>
+          <a href="{{ url_for('register') }}" class="btn {% if popular %}btn-primary{% else %}btn-outline{% endif %} btn-block">Get {{ name }}</a>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- PAYMENT METHODS -->
+      <div class="section-header" style="margin-top:80px">
+        <div class="section-tag"><i class="fas fa-credit-card"></i> Payment</div>
+        <h2>Accepted <span class="gradient-text">Payment Methods</span></h2>
+      </div>
+      <div class="payment-methods">
+        {% for icon, name, desc in [
+          ('📱','bKash',         'Send payment to our bKash number and get instant key activation'),
+          ('💳','Nagad',         'Quick payment via Nagad with automated verification'),
+          ('🪙','Crypto',        'USDT, BTC, ETH accepted — instant processing'),
+          ('🏦','Bank Transfer', 'Direct bank transfer for large orders (contact support)'),
+        ] %}
+        <div class="payment-card">
+          <div class="payment-icon">{{ icon }}</div>
+          <h4>{{ name }}</h4>
+          <p>{{ desc }}</p>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-question-circle"></i> FAQ</div>
+        <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
+      </div>
+      <div style="max-width:800px;margin:0 auto">
+        {% for q, a in [
+          ('How do I get my key after payment?',          'After payment, your activation key is sent instantly to your registered email and also appears in your dashboard. You can also contact us on Telegram for instant delivery.'),
+          ('Is it safe to use on my main account?',       'Our PRO, VIP, and ULTRA plans include our anti-ban engine which provides strong protection. However, we always recommend testing on a secondary account first.'),
+          ('What happens after a game update?',           'Our team monitors all game patches 24/7 and releases updates within hours. The loader auto-updates itself — you don\'t need to do anything.'),
+          ('Can I extend my subscription?',               'Yes! Simply purchase again before your key expires and your time will be automatically extended. Contact support if you need a custom extension.'),
+          ('Do you offer refunds?',                       'We offer refunds within 2 hours of purchase if the product is not working and our support team cannot fix it within that time. No refunds after 2 hours of use.'),
+          ('Which Android versions are supported?',       'We support Android 8.0 and above. For best performance, Android 11+ is recommended. Emulator support is available for all plans.'),
+        ] %}
+        <div class="faq-item">
+          <div class="faq-question">{{ q }} <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">{{ a }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-glow"></div>
+        <h2>Start <span class="gradient-text">Winning Today</span></h2>
+        <p>Instant activation. Cancel anytime. Join 15,000+ players.</p>
+        <div class="cta-btns">
+          <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Create Account</a>
+          <a href="{{ site.telegram or 'https://t.me/benxuiters' }}" target="_blank" class="btn btn-glass btn-lg">
+            <i class="fab fa-telegram"></i> Contact on Telegram
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% include '_footer.html' %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('.pricing-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.pricing-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+{% endblock %}

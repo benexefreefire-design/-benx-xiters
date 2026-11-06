@@ -1,0 +1,55 @@
+{
+  "site": {
+    "name": "BENX XITERS",
+    "title": "Next-Gen Gaming Tools",
+    "logo": "BENXLOGO.png",
+    "telegram": "https://t.me/benxuiters",
+    "email": "support@benxuiters.com",
+    "discord": "",
+    "youtube": ""
+  },
+  "products": [
+    {
+      "id": "p1",
+      "name": "LITE",
+      "title": "",
+      "game": "Free Fire",
+      "daily": 49,
+      "monthly": 899,
+      "image": "",
+      "badge": "",
+      "features": "Basic Aimbot\nSimple ESP\nSpeed Hack\nCommunity Support",
+      "desc": "Entry-level tool for casual players.",
+      "active": true,
+      "popular": false
+    },
+    {
+      "id": "p2",
+      "name": "PRO",
+      "title": "",
+      "game": "Free Fire",
+      "daily": 99,
+      "monthly": 1799,
+      "image": "",
+      "badge": "Most Popular",
+      "features": "AI Neural Aimbot\nFull ESP + Radar\nSpeed + Jump Hack\nAnti-Ban System\nNo Recoil\nAuto Update",
+      "desc": "The most popular plan for serious players.",
+      "active": true,
+      "popular": true
+    },
+    {
+      "id": "p3",
+      "name": "ULTRA",
+      "title": "",
+      "game": "Free Fire",
+      "daily": 199,
+      "monthly": 3499,
+      "image": "",
+      "badge": "",
+      "features": "All PRO Features\nAI Auto-Mode\nSkins ESP\nDevice ID Spoofer\nPriority Updates\nVIP Support 24/7\nPrivate Telegram",
+      "desc": "Maximum power for elite players.",
+      "active": true,
+      "popular": false
+    }
+  ]
+}

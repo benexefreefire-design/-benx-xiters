@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+{% block title %}BENX XITERS — Next-Gen Gaming Tools{% endblock %}
+
+{% block content %}
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-bolt"></i> AI-Powered Gaming Tools</div>
+      <h1 class="hero-title">
+        <span class="gradient-text-steel">BENX</span> XITERS <br/>
+        <span class="gradient-text">Dominate Every Match</span>
+      </h1>
+      <p class="hero-desc">
+        Next-generation gaming tools powered by advanced AI. Precision, speed, and
+        undetectable performance — crafted for elite players.
+      </p>
+      <div class="hero-btns">
+        <a href="{{ url_for('products') }}" class="btn btn-primary btn-lg">
+          <i class="fas fa-shopping-cart"></i> Shop Now
+        </a>
+        <a href="{{ url_for('features') }}" class="btn btn-glass btn-lg">
+          <i class="fas fa-play-circle"></i> See Features
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" data-count="15000">0</span>+
+          <span class="stat-label">Active Users</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-count="99">0</span>%
+          <span class="stat-label">Uptime</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-count="50">0</span>+
+          <span class="stat-label">Products</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-3d">
+        <div class="card-glow"></div>
+        <img src="{{ url_for('static', filename='images/BENXLOGO.png') }}" alt="BENX Product" class="hero-product-img" />
+        <div class="card-badge-live">
+          <span class="live-dot"></span> Live Protection
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE STRIP -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      {% for label in ['Anti-Ban Protection','Aimbot AI','ESP Wallhack','Speed Boost','Rank Booster','Secure & Safe','24/7 Support','Auto Update'] * 2 %}
+      <span><i class="fas fa-bolt"></i> {{ label }}</span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-star"></i> Core Features</div>
+        <h2>Why Choose <span class="gradient-text">BENX XITERS</span>?</h2>
+        <p>Industry-leading tools built with military-grade security and AI precision</p>
+      </div>
+      <div class="features-grid">
+        {% set feat = [
+          ('fa-brain',          'AI-Powered Engine',    'Our neural network-based engine adapts in real-time for maximum efficiency and accuracy.'),
+          ('fa-shield-virus',   'Anti-Detection',       'Advanced obfuscation and kernel-level bypass to keep you undetected at all times.'),
+          ('fa-tachometer-alt', 'Ultra Low Latency',    'Sub-millisecond response time with optimized memory injection for smooth gameplay.'),
+          ('fa-mobile-alt',     'Multi-Platform',       'Works seamlessly on Android, iOS emulators, and PC platforms.'),
+          ('fa-cloud-download-alt','Auto Updates',      'Stay ahead with automatic updates pushed after every game patch, zero downtime.'),
+          ('fa-headset',        '24/7 Support',         'Dedicated Telegram support with instant response from our expert team.'),
+        ] %}
+        {% for icon, title, desc in feat %}
+        <div class="feature-card" data-aos="fade-up">
+          <div class="feature-icon"><i class="fas {{ icon }}"></i></div>
+          <h3>{{ title }}</h3>
+          <p>{{ desc }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="products">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-box"></i> Our Products</div>
+        <h2>Premium <span class="gradient-text">Gaming Panels</span></h2>
+        <p>Choose the perfect tool for your gaming style</p>
+      </div>
+      <div class="products-grid">
+        {% for p in products %}
+        <div class="product-card {% if p.popular %}featured{% endif %}">
+          {% if p.badge %}<div class="product-badge">{{ p.badge }}</div>{% endif %}
+          <div class="product-img-wrap">
+            <img src="{{ p.image or url_for('static', filename='images/BENXLOGO.png') }}" alt="{{ p.name }}" />
+            <div class="product-overlay">
+              <a href="{{ url_for('products') }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+          <div class="product-info">
+            <span class="product-tag">{{ p.game or 'Gaming' }}</span>
+            <h3>BENX {{ p.name }}</h3>
+            <p>{{ p.desc or 'Premium gaming tool with AI-powered features.' }}</p>
+            <div class="product-price">
+              <span class="price-from">From</span>
+              <span class="price">৳{{ p.daily }}</span>
+              <span class="price-period">/day</span>
+            </div>
+            <a href="{{ url_for('products') }}" class="btn btn-primary btn-block">Buy Now</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="products-cta">
+        <a href="{{ url_for('products') }}" class="btn btn-glass btn-lg">View All Products <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-cogs"></i> Process</div>
+        <h2>How It <span class="gradient-text">Works</span></h2>
+        <p>Get started in just 3 simple steps</p>
+      </div>
+      <div class="steps-row">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <div class="step-icon"><i class="fas fa-shopping-bag"></i></div>
+          <h4>Purchase a Plan</h4>
+          <p>Choose your desired product and complete payment via bKash, Nagad or crypto.</p>
+        </div>
+        <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <div class="step-icon"><i class="fas fa-key"></i></div>
+          <h4>Get Your Key</h4>
+          <p>Receive your unique activation key instantly via email and dashboard.</p>
+        </div>
+        <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <div class="step-icon"><i class="fas fa-gamepad"></i></div>
+          <h4>Start Gaming</h4>
+          <p>Download loader, inject key and dominate your games with AI-powered tools.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-tags"></i> Pricing</div>
+        <h2>Affordable <span class="gradient-text">Plans</span></h2>
+        <p>Flexible pricing for every type of gamer</p>
+      </div>
+      <div class="pricing-toggle">
+        <span>Daily</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="pricingToggle" />
+          <span class="slider"></span>
+        </label>
+        <span>Monthly <span class="save-badge">Save 40%</span></span>
+      </div>
+      <div class="pricing-grid">
+        {% for p in products %}
+        <div class="pricing-card {% if p.popular %}popular{% endif %}">
+          {% if p.popular %}<div class="popular-badge">Most Popular</div>{% endif %}
+          <div class="plan-name">{{ p.name }}</div>
+          <div class="plan-price daily">
+            <span class="currency">৳</span><span class="amount">{{ p.daily }}</span><span class="per">/day</span>
+          </div>
+          <div class="plan-price monthly" style="display:none">
+            <span class="currency">৳</span><span class="amount">{{ p.monthly }}</span><span class="per">/month</span>
+          </div>
+          <ul class="plan-features">
+            {% for feat in (p.features or '').split('\n') if feat.strip() %}
+            <li><i class="fas fa-check"></i> {{ feat.strip() }}</li>
+            {% endfor %}
+          </ul>
+          <a href="{{ url_for('products') }}" class="btn {% if p.popular %}btn-primary{% else %}btn-outline{% endif %} btn-block">Get Started</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-users"></i> Community</div>
+        <h2>What Players <span class="gradient-text">Say</span></h2>
+      </div>
+      <div class="testimonials-grid">
+        {% for review in [
+          ('R','Rafi Hasan',   'Free Fire Player', 'BENX PRO panel is insane! Undetected for 3 months straight. Best investment for gaming.'),
+          ('S','Sabbir Ahmed', 'PUBG Mobile Player','Customer support is top-notch. Helped me set up within 5 minutes. Absolutely worth it!'),
+          ('T','Tanvir Khan',  'Free Fire Pro',     'The AI aimbot is next level. Smooth, accurate, and my rank went from Silver to Heroic!'),
+        ] %}
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"{{ review[3] }}"</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">{{ review[0] }}</div>
+            <div>
+              <strong>{{ review[1] }}</strong>
+              <span>{{ review[2] }}</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-glow"></div>
+        <h2>Ready to <span class="gradient-text">Dominate</span>?</h2>
+        <p>Join 15,000+ elite players using BENX XITERS tools to rank up faster.</p>
+        <div class="cta-btns">
+          <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Create Free Account</a>
+          <a href="{{ site.telegram or 'https://t.me/benxuiters' }}" target="_blank" class="btn btn-glass btn-lg">
+            <i class="fab fa-telegram"></i> Join Telegram
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% include '_footer.html' %}
+
+{% endblock %}
